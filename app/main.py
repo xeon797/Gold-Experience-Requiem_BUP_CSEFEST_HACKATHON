@@ -18,6 +18,7 @@ from app.optimizer import SolverHour, solve_energy_plan
 from app.replay import ReplayValidationError, validate_replay
 from app.schemas import (
     DirectiveInterpretation,
+    ErrorResponse,
     HourlyPlanEntry,
     OptimizeRequest,
     OptimizeResponse,
@@ -284,7 +285,21 @@ def construct_response(
     )
 
 
-@app.post("/optimize-energy", response_model=OptimizeResponse, status_code=200)
+@app.post(
+    "/optimize-energy",
+    response_model=OptimizeResponse,
+    status_code=200,
+    responses={
+        400: {
+            "model": ErrorResponse,
+            "description": "Malformed JSON or structurally invalid request.",
+        },
+        500: {
+            "model": ErrorResponse,
+            "description": "Controlled internal processing error.",
+        },
+    },
+)
 async def optimize_energy(
     request: OptimizeRequest,
     interpreter: Annotated[GeminiInterpreter, Depends(get_interpreter)],

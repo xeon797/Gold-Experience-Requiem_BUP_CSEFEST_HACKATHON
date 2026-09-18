@@ -49,6 +49,16 @@ class ContractModel(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
 
+class ErrorResponse(BaseModel):
+    """Controlled error response payload for 400 and 500 status codes."""
+
+    error: str = Field(description="Machine-readable error code")
+    message: str | None = Field(default=None, description="Human-readable error explanation")
+    details: list[dict[str, str]] | None = Field(
+        default=None, description="Field-level validation error details"
+    )
+
+
 class HourEntry(ContractModel):
     """Demand, solar availability, and tariff for one input hour."""
 
