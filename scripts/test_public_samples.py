@@ -42,8 +42,10 @@ def run(base_url: str) -> list[dict[str, Any]]:
     """POST every public input and independently verify each returned response."""
 
     results: list[dict[str, Any]] = []
-    with httpx.Client(base_url=base_url.rstrip("/"), timeout=30.0) as client:
+    with httpx.Client(base_url=base_url.rstrip("/"), timeout=45.0) as client:
         for case in _load_cases():
+            import time
+            time.sleep(1.0)
             response = client.post("/optimize-energy", json=case["input"])
             body = response.json()
             result = {

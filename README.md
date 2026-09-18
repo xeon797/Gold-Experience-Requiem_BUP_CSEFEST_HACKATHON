@@ -268,13 +268,13 @@ All 10 sample cases pass replay validation with zero directive violations and 0.
 
 ### 8.1 Build Locally
 ```bash
-docker build -t gridwise-llm:v1.0.0 .
+docker build -t ghcr.io/xeon797/gridwise-llm:v1.0.0 .
 ```
 
 ### 8.2 Pull and Run Remote Image
 ```bash
-# Pull remote image
-docker pull <REGISTRY>/gridwise-llm:v1.0.0
+# Pull remote image from public registry
+docker pull ghcr.io/xeon797/gridwise-llm:v1.0.0
 
 # Run container binding to local port 8000
 docker run -d \
@@ -282,7 +282,7 @@ docker run -d \
   -e PORT=8000 \
   -e GEMINI_API_KEY="<YOUR_GEMINI_API_KEY>" \
   --name gridwise-service \
-  <REGISTRY>/gridwise-llm:v1.0.0
+  ghcr.io/xeon797/gridwise-llm:v1.0.0
 ```
 
 Verify container health:
@@ -294,11 +294,12 @@ curl -s http://localhost:8000/health
 
 ## 9. Public Deployment URL
 
-- **Service Base URL:** `<DEPLOYED_BASE_URL>`
-- **Health Endpoint:** `<DEPLOYED_BASE_URL>/health`
-- **Optimization Endpoint:** `<DEPLOYED_BASE_URL>/optimize-energy`
+- **Service Base URL:** `https://gold-experience-requiem-bup-csefest.onrender.com`
+- **Health Endpoint:** `https://gold-experience-requiem-bup-csefest.onrender.com/health`
+- **Optimization Endpoint:** `https://gold-experience-requiem-bup-csefest.onrender.com/optimize-energy`
+- **Interactive Documentation:** `https://gold-experience-requiem-bup-csefest.onrender.com/docs`
 
-*(The live endpoint is accessible publicly over HTTPS with no authentication, token, or VPN required.)*
+*(The live service is deployed on Render and is accessible publicly over HTTPS with no authentication, token, or VPN required.)*
 
 ---
 
